@@ -29,7 +29,7 @@ if [[ "$responsew" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
   iwconfig 2>/dev/null | grep -o "^\w*"
   read -p 'Which wireless interface do you want to use? ' winterface
-  read -p 'What do you want to name the selected wireless? ' winame
+  read -p 'What do you want to name the selected wireless device? ' winame
   sudo sh -c "echo 'source=$winterface:name=$winame' >> /usr/local/etc/kismet.conf"
 fi
 
@@ -38,6 +38,6 @@ if [[ "$responsebt" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
   hciconfig  2>/dev/null | grep -o "^\w*"
   read -p 'Which bluetooth interface do you want to use? ' btinterface
-  read -p 'What do you want to name the selected wireless? ' btname
+  read -p 'What do you want to name the selected bluetooth device? ' btname
   sudo sh -c "echo 'source=$btinterface:name=$btname' >> /usr/local/etc/kismet.conf"
 fi
