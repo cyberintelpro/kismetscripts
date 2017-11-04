@@ -41,3 +41,12 @@ then
   read -p 'What do you want to name the selected bluetooth device? ' btname
   sudo sh -c "echo 'source=$btinterface:name=$btname' >> /usr/local/etc/kismet.conf"
 fi
+
+read -r -p "Do you want to setup a GPS? [y/N] " responsegps
+if [[ "$responsegps" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
+  dmesg | grep -i tty
+  read -p 'Which GPS interface do you want to use (ex. /dev/ttyUSB0)? ' gpsinterface
+  read -p 'What do you want to name the selected bluetooth device? ' gpsname
+  sudo sh -c "echo 'gps=serial:device=$gpsinterface,name= $gpsname' >> /usr/local/etc/kismet.conf"
+fi
