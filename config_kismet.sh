@@ -27,19 +27,30 @@ fi
 read -r -p "Do you want to set a wireless collection interface? [y/N] " responsew
 if [[ "$responsew" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-  iwconfig 2>/dev/null | grep -o "^\w*"
-  read -p 'Which wireless interface do you want to use? ' winterface
+  # Read wireless interface output line by line into array ${lines [@]}
+  readarray -t lines < <(iwconfig 2>/dev/null | grep -o "^\w*")
+  # Prompt the user to select one of the lines.
+  echo "Please select a wireless interface:"
+    select choice in "${lines[@]}"; do
+      [[ -n $wchoice ]] || { echo "Invalid choice. Please try again." >&2; continue; }
+      break # valid choice was made; exit prompt.
+    done
   read -p 'What do you want to name the selected wireless device? ' winame
-  sudo sh -c "echo 'source=$winterface:name=$winame' >> /usr/local/etc/kismet.conf"
+  sudo sh -c "echo 'source=$wchoice:name=$winame' >> /usr/local/etc/kismet.conf"
 fi
 
 read -r -p "Do you want to set a bluetooth collection interface? [y/N] " responsebt
 if [[ "$responsebt" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-  hciconfig  2>/dev/null | grep -o "^\w*"
-  read -p 'Which bluetooth interface do you want to use? ' btinterface
-  read -p 'What do you want to name the selected bluetooth device? ' btname
-  sudo sh -c "echo 'source=$btinterface:name=$btname' >> /usr/local/etc/kismet.conf"
+  # Read wireless interface output line by line into array ${lines [@]}
+  readarray -t lines < <(hciconfig  2>/dev/null | grep -o "^\w*")
+  echo "Please select a bluetooth interface:"
+    select choice in "${lines[@]}"; do
+      [[ -n $btchoice ]] || { echo "Invalid choice. Please try again." >&2; continue; }
+      break # valid choice was made; exit prompt.
+    done
+  read -p 'What do you want to name the selected bluetooth interface? ' btname
+  sudo sh -c "echo 'source=$btchoice:name=$btname' >> /usr/local/etc/kismet.conf"
 fi
 
 read -r -p "Do you want to setup a GPS? [y/N] " responsegps
