@@ -57,6 +57,6 @@ if [[ "$responsegps" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
   dmesg | grep -i tty
   read -p 'Which GPS interface do you want to use (ex. /dev/ttyUSB0)? ' gpsinterface
-  read -p 'What do you want to name the selected bluetooth device? ' gpsname
+  read -p 'What do you want to name the selected gps device? ' gpsname
   sudo sh -c "echo 'gps=serial:device=$gpsinterface,name= $gpsname' >> /usr/local/etc/kismet.conf"
 fi
