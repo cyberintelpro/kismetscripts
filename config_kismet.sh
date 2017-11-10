@@ -31,7 +31,7 @@ then
   readarray -t lines < <(iwconfig 2>/dev/null | grep -o "^\w*")
   # Prompt the user to select one of the lines.
   echo "Please select a wireless interface:"
-    select choice in "${lines[@]}"; do
+    select wchoice in "${lines[@]}"; do
       [[ -n $wchoice ]] || { echo "Invalid choice. Please try again." >&2; continue; }
       break # valid choice was made; exit prompt.
     done
@@ -45,7 +45,7 @@ then
   # Read wireless interface output line by line into array ${lines [@]}
   readarray -t lines < <(hciconfig  2>/dev/null | grep -o "^\w*")
   echo "Please select a bluetooth interface:"
-    select choice in "${lines[@]}"; do
+    select btchoice in "${lines[@]}"; do
       [[ -n $btchoice ]] || { echo "Invalid choice. Please try again." >&2; continue; }
       break # valid choice was made; exit prompt.
     done
