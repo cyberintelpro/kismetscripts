@@ -5,7 +5,6 @@ read -r -p "Do you want to set the kismet web UI username and password? [y/N] " 
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
   if grep -v '^#' /usr/local/etc/kismet_httpd.conf | grep -v '^$'| grep -q  'httpd_username=*'
-
   then
       print 'Username is already set'
       grep -v '^#' /usr/local/etc/kismet_httpd.conf | grep -v '^$'| grep 'httpd_username=*'
