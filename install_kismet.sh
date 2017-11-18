@@ -17,15 +17,14 @@ sudo apt-get update \
     libnm-dev \
     libdw-dev \
     libsqlite3-dev \
-    && sudo apt-get remove -y wpasupplicant \
-    && cd /home/pi/ \
     && sudo wget -O manuf 'https://code.wireshark.org/review/gitweb?p=wireshark.git;a=blob_plain;f=manuf' \
     && sudo cp manuf /etc/. \
     && sudo rm manuf \
     && git clone https://www.kismetwireless.net/git/kismet.git \
-    && cd /home/pi/kismet \
+    && cd kismet \
     && sudo ./configure \
-    && sudo make -j2 \
+    && sudo make \
     && sudo make suidinstall \
-    && sudo usermod -a -G kismet pi \
+    && sudo usermod -a -G kismet $USER \
+    && cd ..
     && sudo reboot
