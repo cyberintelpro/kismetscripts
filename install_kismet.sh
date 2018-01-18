@@ -5,8 +5,9 @@ sudo apt-get update \
   && sudo apt-get upgrade -y \
   && sudo apt-get install -y \
     build-essential \
-    libmicrohttpd-dev \
     git \
+    libmicrohttpd-dev \
+    zlib1g-dev \
     libnl-3-dev \
     libnl-genl-3-dev \
     libcap-dev \
